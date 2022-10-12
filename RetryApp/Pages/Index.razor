@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject IHttpClientFactory factory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+Fetched data @data
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code{
+    string data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = factory.CreateClient("api");
+        data = await client.GetStringAsync("http://localhost:5282/weatherforecast");
+    }
+}
